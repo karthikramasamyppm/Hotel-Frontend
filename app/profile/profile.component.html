@@ -1,0 +1,68 @@
+<div class="container margined">
+  <div class="row">
+    <div class="col-md-3 profile-col">
+      <form id="firstTime" action="#" id="update" method="post" hidden>
+        <input type="submit" class="button" value="Submit" />
+      </form>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4><span class="glyphicon glyphicon-user"></span> Profile <span id="userprofile" style="color: skyblue">{{ user.username }}</span></h4>
+        </div>
+        <div id="profile-detail" class="panel-body panel-info">
+          <form [formGroup]="profileForm" (ngSubmit)="editProfile()">
+            <div class="form-group" [ngClass]="{'has-error': checkValid('firstName')}">
+              <label *ngIf="checkValid('firstName')" class="label label-danger">
+                {{ profileForm.get('firstName').errors['required'] ? 'This field is required' : 'Invalid data' }}
+              </label>
+              <input formControlName="firstName" class="form-control" placeholder="First name ...">
+            </div>
+            <div class="form-group" [ngClass]="{'has-error': checkValid('lastName')}">
+              <label *ngIf="checkValid('lastName')" class="label label-danger">
+                {{ profileForm.get('lastName').errors['required'] ? 'This field is required' : 'Invalid data' }}
+              </label>
+              <input formControlName="lastName" class="form-control" placeholder="Last name ...">
+            </div>
+            <div class="form-group" [ngClass]="{'has-error': checkValid('phone')}">
+              <label *ngIf="checkValid('phone')" class="label label-danger">
+                {{ profileForm.get('phone').errors['required'] ? 'This field is required' : 'Invalid data' }}
+              </label>
+              <input formControlName="phone" class="form-control" placeholder="Phone number ...">
+            </div>
+            <div class="form-group" [ngClass]="{'has-error': checkValid('address')}">
+              <label *ngIf="checkValid('address')" class="label label-danger">
+                {{ profileForm.get('address').errors['required'] ? 'This field is required' : 'Invalid data' }}
+              </label>
+              <input formControlName="address"  class="form-control" placeholder="Address ...">
+            </div>
+            <div class="form-group" [ngClass]="{'has-error': checkValid('creditCard')}">
+              <label *ngIf="checkValid('creditCard')" class="label label-danger">
+                {{ profileForm.get('creditCard').errors['required'] ? 'This field is required' : 'Invalid data' }}
+              </label>
+              <input formControlName="creditCard" class="form-control" placeholder="Credit card number ...">
+            </div>
+            <button [disabled]="!profileForm.valid" class="btn btn-primary btn-block">Update</button>
+            <span *ngIf="success" class="text-success">Updated successfully !</span>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="page-header"> <h1 class="text-center">You have reserved those rooms</h1></div>
+      <div id="reservation-list" *ngFor="let res of reservations">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="text-center">{{ res.hotel.name }}</h3>
+          </div>
+          <div class="panel-body profile-img-custom">
+            <img class="img-responsive img-thumbnail" src="assets/images/hotel.jpg">
+            <img class="img-responsive img-thumbnail" [src]="'assets/images/rooms/'+res.room.quality+'.jpg'">
+          </div>
+          <div class="panel-footer">
+            <h4 class="text-center">Room in quality <span style="color: indianred">{{ res.room.quality }}</span> <b>SINCE</b> {{ res.from_date }} <b>TO</b> {{ res.expired }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="head-search">
+  <div class="container">
+    <div class="col-md-4 col-md-offset-4">
+      <form [formGroup]="searchForm" (ngSubmit)="search()">
+        <div class="form-group">
+          <select formControlName="room_quality" id="quality" name="room_quality" class="form-control">
+            <option value="" [disabled]="true" [selected]="true">Select quality</option>
+            <option *ngFor="let number of numbers" [value]="number">{{ number }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <input formControlName="date_from" id="dateFrom" type="date" name="date_from"  class="form-control" />
+        </div>
+        <div class="form-group">
+          <input formControlName="date_to" id="dateTo" type="date" name="date_to" class="form-control" />
+        </div>
+        <div class="form-group">
+          <span class="text-danger" *ngIf="searchError">{{ searchError }}</span>
+          <button [disabled]="!searchForm.valid" class="btn btn-default btn-block">Search</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div id="roomList" class="container" >
+    <div *ngFor="let room of hotel.Rooms">
+    <div class="room" *ngIf="!roomsList || roomsList.includes(room.id)">
+    <div class="col-md-4 col-sm-6 col-detail-custom">
+      <div class="panel  panel-default rooms-displayed">
+        <div class="panel-heading">
+          <h4 class="text-center">
+            Quality - <span style="color: dodgerblue;">{{ room.quality }}</span>
+          </h4>
+        </div>
+        <div class="panel-body">
+          <img class="text-center img-responsive img-thumbnail" [src]="'assets/images/rooms/'+room.quality+'.jpg'">
+        </div>
+        <div class="panel-footer">
+          <button data-toggle="modal" (click)="reset()"  [attr.data-target]="'#modal' + room.id" class="btn btn-default btn-block">Reserve!</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" [attr.id]="'modal'+ room.id">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" data-dismiss="modal">&times;</button>
+            <h4 class="text-center">Room quality - <span style="color: dodgerblue;">{{ room.quality }}</span></h4>
+          </div>
+          <div class="modal-body">
+            <h3 class="text-center text-success"><b> {{ hotel.Hotel[0].name }}</b></h3><br>
+            <h5 class="text-center"> Adress : {{ hotel.Hotel[0].hotel_address }}</h5> <br>
+            <form [formGroup]="reserveForm" (ngSubmit)="reserve()">
+              <div
+                class="form-group col-md-4 col-md-offset-4"
+                [ngClass]="{'has-error': !reserveForm.get('date_from').valid && reserveForm.get('date_from').touched}">
+                <label for="date_from" class="label label-default">Select date from</label>
+                <input id="date_from" formControlName="date_from" type="date" class="form-control">
+              </div>
+              <div class="form-group col-md-4 col-md-offset-4">
+                <label for="date_to" class="label label-default">Select date to</label>
+                <input id="date_to" formControlName="date_to" type="date" class="form-control">
+              </div>
+              <div class="form-group col-md-4 col-md-offset-4">
+                <label *ngIf="error" class="label label-danger">{{ error }}</label>
+                <label *ngIf="reserveResponse" class="label label-danger">{{ reserveResponse }}</label>
+                <button [disabled]="!reserveForm.valid || error" (click)="getRoom(room.id)" type="submit" class="btn btn-success btn-block">Reserve</button>
+              </div>
+            </form>
+            <div class="list-of-res">
+              <h5 class="text-center link text-info" *ngIf="!reservedDays.reservations" (click)="showReservations(room.id)">Show busy days</h5>
+              <div *ngFor="let res of reservedDays['reservations']">
+                <h6 class="text-center">Reserved from {{ res.from_date }} until {{ res.expired }} </h6><br>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button #dismiss class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</section>
+

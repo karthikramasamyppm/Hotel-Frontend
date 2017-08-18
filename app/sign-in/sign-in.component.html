@@ -1,0 +1,31 @@
+<section>
+  <div class="container margined">
+    <div class="panel panel-default col-md-4 col-md-offset-4">
+      <div class="panel-heading">
+        <h4 class="text-center">
+          Login
+        </h4>
+      </div>
+      <div class="panel-body">
+        <form [formGroup]="loginForm" (ngSubmit)="submit()">
+          <div class="form-group">
+            <label *ngIf="checkValid('username')" class="label label-danger">
+              {{ loginForm.get('username').errors['required'] ? 'This field is required' : 'Invalid data' }}
+            </label>
+            <input formControlName="username" id="id_username" required type="text" name="username" class="form-control" placeholder="Login..">
+          </div>
+          <div class="form-group">
+            <label *ngIf="checkValid('password')" class="label label-danger">
+              {{ loginForm.get('password').errors['required'] ? 'This field is required' : 'Invalid data' }}
+            </label>
+            <input formControlName="password" id="password" required type="password" class="form-control" name="password" placeholder="password..">
+          </div>
+          <div class="form-group">
+            <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <span class="text-danger" *ngIf="errorOccurred">{{ errorOccurred }}</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

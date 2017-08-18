@@ -1,0 +1,79 @@
+header {
+  background: url("../../assets/images/header.jpg");
+  height: 355px;
+  padding: 50px;
+  color: white;
+}
+.head-search {
+  margin-top: 55px;
+}
+.custom {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.col-text {
+  column-count: 3;
+  -webkit-column-count: 3;
+  -moz-column-count: 3;
+}
+.nav-bottom {
+  float: none;
+  display: table;
+  table-layout: fixed;
+  margin: 0 auto;
+}
+.nav-bottom li {
+  padding: 10px;
+}
+.nav-bottom li a:hover {
+  background: #337ab7;
+  color: white;
+}
+section {
+  margin-top: 10px;
+}
+.custom-col {
+  padding: 10px;
+}
+.custom-col img {
+  width: 200px;
+  height: 150px;
+  float: left;
+}
+.custom-col li {
+  list-style-type: none;
+}
+.col-detail-custom {
+  padding: 10px;
+}
+.col-detail-custom img {
+  display: block;
+  margin: 0 auto;
+  height: 200px;
+}
+.list-of-res {
+  clear: both;
+}
+.list-of-res h6 {
+  text-decoration-style: wavy;
+  color: lightcoral;
+}
+.profile-col img {
+  width: 50px;
+  height: 50px;
+}
+.margined {
+  margin-top: 55px;
+}
+.profile-img-custom img {
+  height: 300px;
+  width: 50%;
+  float: left;
+}
+#login p input {
+  width: 100%;
+}
+.link {
+  cursor: pointer;
+}
